@@ -5,6 +5,8 @@ DIY Drone Bit is a DIY STEAM drone that uses the micro:bit for programming and f
 
 The micro:bit can be used to implement basic flight control functions for drones, including altitude hold, waypoint navigation, speed control, turning, and rotation.
 
+This extension is designed to programme and drive the drones UAV, You can [get MicrobitDrone from the GigoToys store](https://www.gigotoys.com/products/1413-en.html)
+
 ## Basic usage
 * To initialize the UAV
 ```JavaScript
