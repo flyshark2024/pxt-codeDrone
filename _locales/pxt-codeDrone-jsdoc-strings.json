@@ -6,6 +6,6 @@
   "drone.rotationAction": "rotation action %rotationState by %angle °",
   "drone.droneHeight": "drone height",
   "drone.droneVoltage": "drone voltage",
-  "drone.setDroneHeight": "set drone height $height cm",
+  "drone.setDroneHeight": "set drone height",
   "drone.initModule": "initialize drone"
 }
