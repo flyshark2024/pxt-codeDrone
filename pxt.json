@@ -1,16 +1,14 @@
 {
     "name": "microbit-drone",
-    "version": "0.1.1",
+    "version": "0.1.0",
     "description": "Drone control extension for micro:bit",
     "dependencies": {
-        "core": "*",
-        "radio": "*",
-        "microphone": "*"
+        "core": "*"
     },
     "files": [
         "README.md",
         "main.ts",
-        "_locales/zh-CN/pxt-dronebit-strings.json"
+        "_locales/zh-CN/pxt-codeDrone-strings.json"
     ],
     "testFiles": [
         "test.ts"

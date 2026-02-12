@@ -1,0 +1,11 @@
+{
+  "drone.takeOffAction": "起飞",
+  "drone.landingAction": "降落",
+  "drone.moveAction": "移动指令 %directionState 移动 %distance 厘米",
+  "drone.moveActionTime": "移动指令 %directionState 移动 %sec 秒",
+  "drone.rotationAction": "旋转指令 %rotationState 旋转 %angle °",
+  "drone.droneHeight": "无人机高度",
+  "drone.droneVoltage": "无人机电压",
+  "drone.setDroneHeight": "设置无人机高度为 $height 厘米",
+  "drone.initModule": "初始化无人机"
+}

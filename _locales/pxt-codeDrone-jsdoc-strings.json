@@ -1,0 +1,11 @@
+{
+  "drone.takeOffAction": "take off action",
+  "drone.landingAction": "landing action",
+  "drone.moveAction": "move action %directionState by %distance cm",
+  "drone.moveActionTime": "move action %directionState by %second s",
+  "drone.rotationAction": "rotation action %rotationState by %angle °",
+  "drone.droneHeight": "drone height",
+  "drone.droneVoltage": "drone voltage",
+  "drone.setDroneHeight": "set drone height $height cm",
+  "drone.initModule": "initialize drone"
+}

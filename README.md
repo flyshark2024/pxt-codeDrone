@@ -1,62 +1,61 @@
-# MicrobitDrone Package
+# CodeDrone
 ![](https://raw.githubusercontent.com/flyshark2024/MicrbitDrone/master/image.jpg)
 
 DIY Drone Bit is a DIY STEAM drone that uses the micro:bit for programming and flight control.
 
-The micro:bit can be used to implement basic flight control functions for drones, including altitude hold, waypoint navigation, speed control, turning, and rotation.
+The micro:bit can be used to implement basic flight control functions for drone, including altitude hold, waypoint navigation, speed control, turning, and rotation.
 
-This extension is designed to programme and drive the drones UAV, You can [get MicrobitDrone from the GigoToys store](https://www.gigotoys.com/products/1413-en.html)
+This extension is designed to programme and drive the drone, You can [get CodeDrone from the GigoToys store](https://www.gigotoys.com/products/1413-en.html)
 
 ## Basic usage
-* To initialize the UAV
+* To initialize the drone
 ```JavaScript
-Drones.initModule()
+drone.initModule()
 ```
-* Basic command of UAV, take off and landing
+* Basic command of drone, take off
 ```JavaScript
-Drones.Basic_action(Drones.Basicoptions.Takeoff)
+drone.takeOffAction()
+```
+* Basic command of drone, landing
+```JavaScript
+drone.landingAction()
 ```
 * Move command, up and down, left and right, front and back
 ```JavaScript
-Drones.Move_action(Drones.Directionoptions.Forward, 100)
+drone.moveAction(drone.DirectionOptions.Forward, 100)
 ```
 * Rotation command, left to right
 ```JavaScript
-Drones.Rotation_action(Drones.Angleoptions.Left, 0)
+drone.rotationAction(drone.AngleOptions.Left, 0)
 ```
-* Roll command, roll 360 degrees, forward, backward, left and right
+* Get the height of the drone
 ```JavaScript
-Drones.Roll_action(Drones.Rolloptions.Roll_forward)
+drone.droneHeight()
 ```
-* UAV hover, do not use pause, or UAV will land
+* Get the voltage of the drone
 ```JavaScript
-Drones.Hovering(0)
-```
-* Get the height or voltage of the UAV
-```JavaScript
-Drones.Get_Sensor(Drones.Sensoroptions.Voltage)
-```
-* Emergency command, highest priority. The rotor braked and the drone fell. Caution!
-```JavaScript
-Drones.Urgent_action(Drones.Urgentoptions.Emergency_stop)
+drone.droneVoltage()
 ```
 
 ## Code Example
 ```JavaScript
-Drones.initModule()
-Drones.Basic_action(Drones.Basicoptions.Takeoff)
-Drones.Move_action(Drones.Directionoptions.Forward, 100)
+drone.initModule()
+drone.takeOffAction()
+drone.moveAction(drone.DirectionOptions.Forward, 100)
 basic.forever(function () {
-    if (Drones.Get_Sensor(Drones.Sensoroptions.Voltage) > 3.5) {
-        Drones.Hovering(10)
+    if (drone.droneVoltage() > 3.5) {
+        drone.moveAction(drone.DirectionOptions.Forward, 100)
     } else {
-        Drones.Basic_action(Drones.Basicoptions.Takeoff)
+        drone.landingAction()
     }
 })
 
 ```
 ## Supported targets
-for microbit drone
+
+* for PXT/microbit
+
+(The metadata above is needed for package search.)
 
 ## License
 MIT

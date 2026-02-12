@@ -1,59 +1,37 @@
 /**
 * Functions to UVA by FLY-SHARK
 */
-//% color=#FF0000  icon="\uf072" block="Drones" blockId="Drones"
-//% groups='["Basic", "Caution!"]'
-namespace Drones {
+//% color=#FF0000  icon="\uf072" block="drone" blockId="drone"
+//% groups='["Basic"]'
+namespace drone {
     let isInit = 0
-    export enum Runmodes {
-        //% block="Master"
-        Master = 0x01,
-        //% block="Remote"
-        Remote = 0x02
-    }
-    export enum Basicoptions {
-        //% block="Take off" 
-        Takeoff = 0x01,
-        //% block="Landing"
-        Landing = 0x02
-    }
-    export enum Urgentoptions {
-        //% block="Emergency stop"
-        Emergency_stop = 0x05
-    }
-    export enum Directionoptions {
-        //% block="Forward" 
+    export enum DirectionOptions {
+        //% block="forward" 
         Forward = 0x12,
-        //% block="Backward"
+        //% block="backward"
         Backward = 0x13,
-        //% block="Left" 
+        //% block="left" 
         Left = 0x14,
-        //% block="Right"
+        //% block="right"
         Right = 0x15
     }
-    export enum Angleoptions {
-        //% block="Left" 
+    export enum AngleOptions {
+        //% block="left" 
         Left = 0x16,
-        //% block="Right"
+        //% block="right"
         Right = 0x17
     }
-    export enum Rolloptions {
-        //% block="Roll forward" 
+    export enum RollOptions {
+        //% block="roll forward" 
         Roll_forward = 0x20,
-        //% block="Roll back"
+        //% block="roll back"
         Roll_back = 0x21,
-        //% block="Roll left" 
+        //% block="roll left" 
         Roll_left = 0x22,
-        //% block="Roll right"
+        //% block="roll right"
         Roll_right = 0x23
     }
-    export enum Sensoroptions {
-        //% block="Voltage" 
-        Voltage = 0x01,
-        //% block="Height"
-        Height = 0x02
-    }
-    function WaitCallback(): boolean {
+    function waitCallback(): boolean {
         while(true){
             let comRxErrorCnt = 0
             let txBuff = pins.createBuffer(8)
@@ -93,107 +71,127 @@ namespace Drones {
             music.startMelody(music.builtInMelody(Melodies.PowerUp), MelodyOptions.Once)
         }
     }
-    //% block="Setting UAV altitude $alt cm"
-    //% alt.min=0 alt.max=100
+    /**
+     * Set the drone to a given height
+     * @param height The height at which the drone will fly, measured in centimeters, with a maximum value of 100 and a minimum value of 0
+     */
+    //% block="set drone height $height cm"
+    //% height.min=0 height.max=100
     //% weight=90 group="Basic"
-    export function UAV_altitude(alt: number): void {
+    export function setDroneHeight(height: number): void {
         initModule()
         let txBuff = pins.createBuffer(8)
         txBuff[0] = 0xa5
         txBuff[1] = 0x01
-        txBuff[2] = alt&0xff
-        txBuff[3] = (alt>>8)&0xff
+        txBuff[2] = height&0xff
+        txBuff[3] = (height>>8)&0xff
         serial.writeBuffer(txBuff)
-        WaitCallback()
+        waitCallback()
     }
-    //% block="Basic action %basicstate"
+    /**
+     * Drone takeoff action
+     */
+    //% block="take off action"
     //% weight=89 group="Basic"
-    export function Basic_action(basicstate: Basicoptions): void {
+    export function takeOffAction(): void {
         initModule()
-        if (basicstate == 1) {
-            for (let index = 3; index >= 0; index--) {
-                basic.showNumber(index)
-                if (index == 0) {
-                    music.playTone(523, music.beat(BeatFraction.Double))
-                } else {
-                    music.playTone(262, music.beat(BeatFraction.Whole))
-                }
+        for (let index = 3; index >= 0; index--) {
+            basic.showNumber(index)
+            if (index == 0) {
+                music.playTone(523, music.beat(BeatFraction.Double))
+            } else {
+                music.playTone(262, music.beat(BeatFraction.Whole))
             }
         }
         let txBuff = pins.createBuffer(8)
         txBuff[0] = 0xa5
         txBuff[1] = 0x06
-        txBuff[2] = basicstate
+        txBuff[2] = basicState
         serial.writeBuffer(txBuff)
-        WaitCallback()
+        waitCallback()
     }
-
-    //% block="Move action %Directionstate by %distance cm"
+    /**
+     * Drone landing action
+     */
+    //% block="landing action"
+    //% weight=89 group="Basic"
+    export function landingAction(): void {
+        initModule()
+        let txBuff = pins.createBuffer(8)
+        txBuff[0] = 0xa5
+        txBuff[1] = 0x06
+        txBuff[2] = basicState
+        serial.writeBuffer(txBuff)
+        waitCallback()
+    }
+    /**
+     * The drone moves a certain distance in the specified direction
+     * @param directionState The direction in which the drone moves, which can be left, right, forward, or backward
+     * @param distance Drone moving distance
+     */
+    //% block="move action %directionState by %distance cm"
     //% weight=70 group="Basic"
-    export function Move_action(Directionstate: Directionoptions, distance: number): void {
+    export function moveAction(directionState: DirectionOptions, distance: number): void {
         initModule()
         let txBuff = pins.createBuffer(8)
         txBuff[0] = 0xa5
         txBuff[1] = 0x02
-        txBuff[2] = Directionstate
+        txBuff[2] = directionState
 
         txBuff[3] = distance&0xff
         txBuff[4] = (distance>>8)&0xff
 
         serial.writeBuffer(txBuff)
-        WaitCallback()
+        waitCallback()
     }
-
-    //% block="Move action %Directionstate by %sec s"
+    /**
+     * The drone moves in a certain direction for a specific duration
+     * @param directionState The direction in which the drone moves, which can be left, right, forward, or backward
+     * @param second Drone movement time
+     */
+    //% block="move action %directionState by %second s"
     //% sec.min=0 sec.max=100
     //% weight=70 group="Basic"
-    export function Move_actionTime(Directionstate: Directionoptions, sec: number): void {
+    export function moveActionTime(directionState: DirectionOptions, second: number): void {
         initModule()
         let txBuff = pins.createBuffer(8)
         txBuff[0] = 0xa5
         txBuff[1] = 0x08
-        txBuff[2] = Directionstate
+        txBuff[2] = directionState
 
-        txBuff[3] = sec&0xff
-        txBuff[4] = (sec>>8)&0xff
+        txBuff[3] = second&0xff
+        txBuff[4] = (second>>8)&0xff
         
         serial.writeBuffer(txBuff)
-        //WaitCallback()
-        basic.pause(sec*1000)
-    }
 
-    //% block="Rotation action %rotationstate by %angle °"
+        basic.pause(second*1000)
+    }
+    /**
+     * The drone rotates a specific angle in a certain direction
+     * @param rotationState The rotation direction of the drone, which can be left or right
+     * @param angle Drone rotation angle
+     */
+    //% block="rotation action %rotationState by %angle °"
     //% weight=65 group="Basic"
-    export function Rotation_action(rotationstate: Angleoptions, angle: number): void {
+    export function rotationAction(rotationState: AngleOptions, angle: number): void {
         initModule()
         let txBuff = pins.createBuffer(8)
         txBuff[0] = 0xa5
         txBuff[1] = 0x03
-        txBuff[2] = rotationstate
+        txBuff[2] = rotationState
 
         txBuff[3] = angle&0xff
         txBuff[4] = (angle>>8)&0xff
         
-        serial.writeBuffer(txBuff)
-        WaitCallback()
+        serial.writeBuffe r(txBuff)
+        waitCallback()
     }
-    //% block="Roll action %rotationstate "
-    //% weight=64 group="Basic"
-    //% deprecated=true
-    export function Roll_action(rollstate: Rolloptions): void {
-        initModule()
-        serial.readString()
-        let txBuff = pins.createBuffer(8)
-        txBuff[0] = 0xa5
-        txBuff[2] = 0x07
-        txBuff[3] = rollstate
-        serial.writeBuffer(txBuff)
-        WaitCallback()
-    }
-
-    //% block="Get %state Value"
+    /**
+     * Get the drone voltage value
+     */
+    //% block="drone voltage"
     //% weight=50 group="Basic"
-    export function Get_Sensor(state: Sensoroptions): number {
+    export function droneVoltage(): number {
         initModule()
         while (true) {
             let txBuff = pins.createBuffer(8)
@@ -208,12 +206,32 @@ namespace Drones {
                 return 0
             } else {
                 if (rowData[0] == 0x5a && rowData[1] == 0x81) {
-                    //basic.showIcon(IconNames.Yes)
-                    //music.startMelody(music.builtInMelody(Melodies.BaDing), MelodyOptions.Once)
-                    if (state == Sensoroptions.Voltage) {
-                        return (rowData[2]) * 0.1
-                    }
-
+                    return (rowData[2]) * 0.1
+                }
+            }
+        }
+        return 0;
+    }
+    /**
+     * Get the drone height value
+     */
+    //% block="drone height"
+    //% weight=50 group="Basic"
+    export function droneHeight(): number {
+        initModule()
+        while (true) {
+            let txBuff = pins.createBuffer(8)
+            txBuff[0] = 0xa5
+            txBuff[1] = 0x81
+            serial.writeBuffer(txBuff)
+            serial.setRxBufferSize(8)
+            basic.pause(500)
+            let rowData = serial.readBuffer(0)
+            if (rowData.length < 8) {
+                basic.showIcon(IconNames.No)
+                return 0
+            } else {
+                if (rowData[0] == 0x5a && rowData[1] == 0x81) {
                     return 0
                 }
             }
