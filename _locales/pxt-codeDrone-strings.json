@@ -22,5 +22,5 @@
   "drone.initModule|block": "initialize drone",
   "drone|block": "drone",
   "{id:category}drone": "drone",
-  "{id:group}Basic": "basic",
+  "{id:group}Basic": "basic"
 }
