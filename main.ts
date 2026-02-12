@@ -106,7 +106,7 @@ namespace drone {
         let txBuff = pins.createBuffer(8)
         txBuff[0] = 0xa5
         txBuff[1] = 0x06
-        txBuff[2] = basicState
+        txBuff[2] = 0x01
         serial.writeBuffer(txBuff)
         waitCallback()
     }
@@ -120,7 +120,7 @@ namespace drone {
         let txBuff = pins.createBuffer(8)
         txBuff[0] = 0xa5
         txBuff[1] = 0x06
-        txBuff[2] = basicState
+        txBuff[2] = 0x02
         serial.writeBuffer(txBuff)
         waitCallback()
     }
@@ -183,7 +183,7 @@ namespace drone {
         txBuff[3] = angle&0xff
         txBuff[4] = (angle>>8)&0xff
         
-        serial.writeBuffe r(txBuff)
+        serial.writeBuffer(txBuff)
         waitCallback()
     }
     /**

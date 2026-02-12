@@ -1,5 +1,4 @@
 basic.showIcon(IconNames.Heart)
-drone.initModule()
 
 input.onButtonPressed(Button.A, function() {
     drone.takeOffAction()
