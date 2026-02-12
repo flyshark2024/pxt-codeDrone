@@ -20,5 +20,5 @@
   "drone.droneVoltage|block": "无人机电压",
   "drone.setDroneHeight|block": "设置无人机高度为 $height 厘米",
   "drone.initModule|block": "初始化无人机",
-  "{id:group}Basic": "基础",
+  "{id:group}Basic": "基础"
 }
