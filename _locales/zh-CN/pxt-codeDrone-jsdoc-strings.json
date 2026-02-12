@@ -6,7 +6,6 @@
   "drone.rotationAction": "旋转指令 %rotationState 旋转 %angle °",
   "drone.droneHeight": "无人机高度",
   "drone.droneVoltage": "无人机电压",
-  "drone.setDroneHeight": "设置无人机高度为 $height 厘米",
-  "drone.initModule": "初始化无人机",
-  "Set the drone to a given height": "设置无人机高度"
+  "drone.setDroneHeight": "设置无人机高度",
+  "drone.initModule": "初始化无人机"
 }

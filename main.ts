@@ -145,28 +145,6 @@ namespace drone {
         waitCallback()
     }
     /**
-     * The drone moves in a certain direction for a specific duration
-     * @param directionState The direction in which the drone moves, which can be left, right, forward, or backward
-     * @param second Drone movement time
-     */
-    //% block="move action %directionState by %second s"
-    //% sec.min=0 sec.max=100
-    //% weight=70 group="Basic"
-    export function moveActionTime(directionState: DirectionOptions, second: number): void {
-        initModule()
-        let txBuff = pins.createBuffer(8)
-        txBuff[0] = 0xa5
-        txBuff[1] = 0x08
-        txBuff[2] = directionState
-
-        txBuff[3] = second&0xff
-        txBuff[4] = (second>>8)&0xff
-        
-        serial.writeBuffer(txBuff)
-
-        basic.pause(second*1000)
-    }
-    /**
      * The drone rotates a specific angle in a certain direction
      * @param rotationState The rotation direction of the drone, which can be left or right
      * @param angle Drone rotation angle

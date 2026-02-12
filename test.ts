@@ -14,5 +14,4 @@ input.onButtonPressed(Button.A, function() {
     drone.landingAction()
     let vtg = drone.droneVoltage()
     basic.showNumber(vtg)
-    drone.moveActionTime(drone.DirectionOptions.Forward, 3)
 })
