@@ -200,7 +200,7 @@ namespace drone {
         while (true) {
             let txBuff = pins.createBuffer(8)
             txBuff[0] = 0xa5
-            txBuff[1] = 0x81
+            txBuff[1] = 0x82
             serial.writeBuffer(txBuff)
             serial.setRxBufferSize(8)
             basic.pause(500)
@@ -209,8 +209,8 @@ namespace drone {
                 basic.showIcon(IconNames.No)
                 return 0
             } else {
-                if (rowData[0] == 0x5a && rowData[1] == 0x81) {
-                    return 0
+                if (rowData[0] == 0x5a && rowData[1] == 0x82) {
+                    return (rowData[2])
                 }
             }
         }
