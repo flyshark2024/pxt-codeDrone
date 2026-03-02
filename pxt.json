@@ -1,6 +1,6 @@
 {
     "name": "pxt-codeDrone",
-    "version": "0.1.5",
+    "version": "0.1.6",
     "description": "Drone control extension for micro:bit",
     "dependencies": {
         "core": "*"
