@@ -210,7 +210,7 @@ namespace drone {
                 return 0
             } else {
                 if (rowData[0] == 0x5a && rowData[1] == 0x82) {
-                    return (rowData[2])
+                    return ((rowData[2])*0.1) + "m"
                 }
             }
         }
