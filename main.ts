@@ -214,6 +214,6 @@ namespace drone {
                 }
             }
         }
-        return "";
+        return 0;
     }
 }
