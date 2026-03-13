@@ -195,7 +195,7 @@ namespace drone {
      */
     //% block="drone height"
     //% weight=50 group="Basic"
-    export function droneHeight(): string {
+    export function droneHeight(): number {
         initModule()
         while (true) {
             let txBuff = pins.createBuffer(8)
@@ -207,7 +207,7 @@ namespace drone {
             let rowData = serial.readBuffer(0)
             if (rowData.length < 8) {
                 basic.showIcon(IconNames.No)
-                return ""
+                return 0
             } else {
                 if (rowData[0] == 0x5a && rowData[1] == 0x82) {
                     return ((rowData[2]) * 0.1)
