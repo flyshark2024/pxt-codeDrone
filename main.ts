@@ -210,7 +210,11 @@ namespace drone {
                 return 0
             } else {
                 if (rowData[0] == 0x5a && rowData[1] == 0x82) {
-                    return ((rowData[2]) * 0.1)
+                    let altitude = rowData[2] | (rowData[3] << 8)
+                    if (altitude & 0x8000) {
+                        altitude = altitude - 0x10000
+                    }
+                    return (altitude)
                 }
             }
         }
